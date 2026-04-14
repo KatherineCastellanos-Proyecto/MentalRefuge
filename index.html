@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Refuge | Tu Espacio Seguro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --main-color: #5dade2; --bg-color: #f8fbff; --card-bg: #ffffff; --emergency: #ff7675; }
+        body { background-color: var(--bg-color); font-family: 'Segoe UI', Tahoma, sans-serif; transition: 0.5s; overflow-x: hidden; }
+        
+        /* LOGIN AVANZADO */
+        #login-container { height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--main-color) 0%, #ffffff 100%); z-index: 1000; position: relative; }
+        .login-card { border: none; border-radius: 30px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); background: white; width: 100%; max-width: 420px; text-align: center; }
+        .social-btn { width: 45px; height: 45px; border-radius: 50%; border: 1px solid #ddd; display: inline-flex; align-items: center; justify-content: center; margin: 0 10px; color: #555; text-decoration: none; transition: 0.3s; }
+        .social-btn:hover { background: var(--main-color); color: white; border-color: var(--main-color); }
+
+        /* ESTRUCTURA DASHBOARD Y BARRA LATERAL */
+        #main-app { display: none; }
+        .sidebar { background: white; min-height: 100vh; border-right: 1px solid #eee; position: fixed; width: 250px; z-index: 100; transition: 0.3s; }
+        .content-area { margin-left: 250px; padding: 40px; }
+        
+        /* Menú Sidebar Moderno (Como la segunda captura) */
+        .nav-link-custom { color: #555; font-weight: 500; border-radius: 12px; margin-bottom: 8px; padding: 12px 15px; display: flex; align-items: center; transition: 0.3s; }
+        .nav-link-custom:hover { background: #e3f2fd; color: #1e88e5; }
+        .nav-link-custom.active { background: #1e88e5; color: white; box-shadow: 0 4px 10px rgba(30,136,229,0.2); }
+        .nav-link-custom i { width: 25px; margin-right: 10px; text-align: center; }
+
+        /* Componentes de Diseño */
+        .card-custom { border: none; border-radius: 25px; background: var(--card-bg); box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; transition: 0.3s; }
+        .card-custom:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .emoji-btn { font-size: 2.8rem; cursor: pointer; transition: 0.3s; filter: grayscale(100%); opacity: 0.5; }
+        .emoji-btn.active, .emoji-btn:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+        .btn-round { border-radius: 50px; font-weight: 600; padding: 12px 30px; }
+        .btn-main { background-color: var(--main-color); color: white; border: none; }
+        .btn-main:hover { opacity: 0.9; color: white; }
+        
+        /* Botón de EMERGENCIA (Renombrado y Suave) */
+        .emergency-btn { background: #fdf2f2; color: #e74c3c; border-radius: 50px; font-weight: bold; border: 2px solid #fab1a0; padding: 10px 30px; transition: 0.3s; }
+        .emergency-btn:hover { background: #fee2e2; border-color: #ff7675; color: #c0392b; transform: scale(1.05); }
+
+        .header-bg { background: linear-gradient(135deg, #aed6f1 0%, #f8fbff 100%); border-radius: 0 0 40px 40px; padding: 40px 0; }
+        .avatar-img-big { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .avatar-img-nav { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+        .theme-circle { width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: inline-block; margin: 5px; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+
+<div id="login-container">
+    <div class="login-card shadow-lg">
+        <h2 style="color: var(--main-color)" class="fw-bold">🧠 Mental Refuge</h2>
+        <p class="text-muted small">Acompañamiento seguro e integral</p>
+        
+        <div class="text-start mb-3 mt-4">
+            <label class="small fw-bold ms-2">Usuario o Correo</label>
+            <input type="email" class="form-control btn-round" placeholder="katherine@refuge.com">
+        </div>
+        <div class="text-start mb-2">
+            <label class="small fw-bold ms-2">Contraseña</label>
+            <input type="password" class="form-control btn-round" placeholder="••••••••">
+        </div>
+        
+        <div class="d-flex justify-content-between align-items-center mb-3 px-2">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="datosCheckbox">
+                <label class="form-check-label small" for="datosCheckbox" style="font-size: 11px;">
+                    Acepto el <a href="#" class="text-decoration-none" onclick="alert('POLÍTICA DE DATOS: Sus datos se procesan bajo la Ley 1581 para fines estrictamente terapéuticos y de personalización.')">Tratamiento de Datos Personales</a>.
+                </label>
+            </div>
+        </div>
+        
+        <button class="btn btn-main w-100 btn-round mb-3 py-2 shadow" onclick="entrarApp()">Ingresar al Refugio</button>
+        
+        <div class="d-flex justify-content-between px-2 small">
+            <a href="#" class="text-decoration-none" onclick="alert('Cargando recuperación de contraseña...')">Olvidé mi clave</a>
+            <a href="#" class="text-decoration-none fw-bold text-primary">Crear Cuenta</a>
+        </div>
+        
+        <div class="mt-4">
+            <p class="small text-muted mb-2">O inicia sesión con:</p>
+            <a href="#" class="social-btn"><i class="fab fa-google"></i></a>
+            <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-btn"><i class="fab fa-apple"></i></a>
+        </div>
+    </div>
+</div>
+
+<div id="main-app" class="container-fluid p-0">
+    <div class="row g-0">
+        <nav class="col-md-3 col-lg-2 sidebar p-4 shadow-sm d-none d-md-block">
+            <div class="text-center mb-5">
+                <img src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png" id="nav-avatar" class="avatar-img-nav mb-2 shadow">
+                <h6 id="nav-name" class="fw-bold mt-2 text-primary">Mental Refuge</h6>
+            </div>
+            <div class="nav flex-column gap-2">
+                <a class="nav-link nav-link-custom active" href="#" onclick="showTab('dashboard')"><i class="fas fa-home"></i> Inicio</a>
+                <a class="nav-link nav-link-custom" href="#" onclick="alert('Abriendo Citas Programadas...')"><i class="fas fa-calendar-alt"></i> Mis Citas</a>
+                <a class="nav-link nav-link-custom" href="#" onclick="alert('Cargando Autoevaluaciones...')"><i class="fas fa-heartbeat"></i> Autoevaluación</a>
+                <a class="nav-link nav-link-custom" href="#" onclick="alert('Cargando Biblioteca de Educación...')"><i class="fas fa-book-open"></i> Educación</a>
+                <a class="nav-link nav-link-custom" href="#" onclick="alert('Abriendo Comunidad...')"><i class="fas fa-users"></i> Comunidad</a>
+                <hr>
+                <a class="nav-link nav-link-custom" href="#" onclick="showTab('perfil')"><i class="fas fa-user-circle"></i> Mi Perfil</a>
+                <a class="nav-link nav-link-custom text-danger fw-bold" href="#" onclick="location.reload()"><i class="fas fa-power-off"></i> Salir</a>
+            </div>
+        </nav>
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 content-area p-0">
+            
+            <div id="dashboard-tab">
+                <div class="header-bg text-center mb-4 px-4">
+                    <h2 class="fw-bold text-primary" id="welcome-text">Hola, Katherine ✨</h2>
+                    <p class="text-muted">¿Qué tal tu energía hoy? Recuerda que este es tu lugar seguro.</p>
+                    <button class="btn emergency-btn shadow" onclick="alert('Llamando a líneas de crisis 24/7...')">🚨 EMERGENCIA</button>
+                </div>
+
+                <div class="px-4">
+                    <div class="card card-custom p-4 text-center mb-4 shadow">
+                        <h5 class="fw-bold">¿Cómo te sientes hoy?</h5>
+                        <div class="d-flex justify-content-around mt-3 flex-wrap">
+                            <span class="emoji-btn" onclick="setMood('Radiante', this)">😊</span>
+                            <span class="emoji-btn" onclick="setMood('En Calma', this)">🧘</span>
+                            <span class="emoji-btn" onclick="setMood('Agotada', this)">😴</span>
+                            <span class="emoji-btn" onclick="setMood('Triste', this)">😔</span>
+                            <span class="emoji-btn" onclick="setMood('Molesta', this)">😠</span>
+                        </div>
+                        <p id="mood-label" class="mt-3 small fw-bold text-primary"></p>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-lg-8 mb-4">
+                            <div class="card card-custom p-4 shadow-sm h-100">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5 class="fw-bold m-0"><i class="fas fa-pen-fancy text-primary me-2"></i> Mi Diario Emocional</h5>
+                                    <span class="badge bg-light text-success border" style="font-size: 11px; font-weight: normal;">
+                                        <i class="fas fa-lock me-1"></i> Cifrado de extremo a extremo
+                                    </span>
+                                </div>
+                                <textarea id="diary-entry" class="form-control mb-3 border-0 bg-light p-3 rounded-4" rows="5" placeholder="Hoy me siento..."></textarea>
+                                <button class="btn btn-primary btn-round w-100 mt-2 btn-main shadow-sm" onclick="saveEntry()">Guardar Pensamiento</button>
+                                <div id="diary-history" class="mt-4"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 mb-4 gap-3 d-flex flex-column">
+                            <div class="card card-custom p-4 text-white shadow" style="background: var(--main-color);">
+                                <h6 class="fw-bold m-0"><i class="fas fa-robot me-2"></i> Kathe - Tu asistente Chatbot</h6>
+                                <p class="small mt-2 mb-3">Orientación emocional básica 24/7.</p>
+                                <button class="btn btn-light btn-round btn-sm w-100" onclick="alert('Kathe: Hola Katherine, estoy aquí para escucharte.')">Hablar ahora</button>
+                            </div>
+                            <div class="card card-custom p-4 bg-white shadow-sm" style="background-color: var(--mint);">
+                                <h6 class="fw-bold text-success m-0"><i class="fas fa-seedling me-2"></i> Bienestar Tip</h6>
+                                <p class="small text-muted mb-0">"La respiración profunda es el puente hacia la calma."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="perfil-tab" style="display: none;" class="p-4">
+                <h3 class="fw-bold mb-4">Configurar mi Refugio</h3>
+                <div class="row mt-4">
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="card card-custom p-4 shadow-sm">
+                            <img src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png" id="big-avatar" class="avatar-img-big mb-3 mx-auto shadow">
+                            <h6 class="fw-bold mb-3">Cambiar Avatar</h6>
+                            <div class="d-flex justify-content-center gap-1 flex-wrap">
+                                <img src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png" class="emoji-btn" style="width:50px; height:50px; opacity:1; filter:none" onclick="changeAvatar(this.src)">
+                                <img src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png" class="emoji-btn" style="width:50px; height:50px; opacity:1; filter:none" onclick="changeAvatar(this.src)">
+                                <img src="https://cdn-icons-png.flaticon.com/512/4140/4140047.png" class="emoji-btn" style="width:50px; height:50px; opacity:1; filter:none" onclick="changeAvatar(this.src)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card card-custom p-4 shadow-sm mb-4">
+                            <h6 class="fw-bold mb-3">Mis Datos</h6>
+                            <input type="text" id="edit-name" class="form-control btn-round bg-light mb-3" value="Katherine">
+                            <button class="btn btn-custom w-100 btn-main rounded-pill" onclick="saveProfile()">Guardar Cambios</button>
+                        </div>
+                        <div class="card card-custom p-4 shadow-sm text-center">
+                            <h6 class="fw-bold">Colores de la App</h6>
+                            <p class="small text-muted mb-3">Cambia el tono según tu energía:</p>
+                            <div class="theme-circle" style="background: #5dade2;" onclick="setTheme('#5dade2', '#f8fbff')" title="Azul Calma"></div>
+                            <div class="theme-circle" style="background: #48c9b0;" onclick="setTheme('#48c9b0', '#f0fff4')" title="Verde Vida"></div>
+                            <div class="theme-circle" style="background: #af7ac5;" onclick="setTheme('#af7ac5', '#f5eef8')" title="Morado Paz"></div>
+                            <div class="theme-circle" style="background: #f4d03f;" onclick="setTheme('#f4d03f', '#fef9e7')" title="Amarillo Energía"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    // Navegación Básica
+    function entrarApp() {
+        const check = document.getElementById('datosCheckbox');
+        if(!check.checked) {
+            alert("Para ingresar, por favor acepta el tratamiento de datos personales.");
+            return;
+        }
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('main-app').style.display = 'block';
+    }
+
+    function showTab(tab) {
+        document.getElementById('dashboard-tab').style.display = (tab === 'dashboard') ? 'block' : 'none';
+        document.getElementById('perfil-tab').style.display = (tab === 'perfil') ? 'block' : 'none';
+    }
+
+    // Funciones de Perfil
+    function changeAvatar(src) {
+        document.getElementById('big-avatar').src = src;
+        document.getElementById('nav-avatar').src = src;
+    }
+
+    function setTheme(main, bg) {
+        document.documentElement.style.setProperty('--main-color', main);
+        document.documentElement.style.setProperty('--bg-color', bg);
+    }
+
+    function saveProfile() {
+        const name = document.getElementById('edit-name').value;
+        document.getElementById('nav-name').innerText = name;
+        document.getElementById('welcome-text').innerText = "Hola, " + name + " ✨";
+        showTab('dashboard');
+        alert("¡Tu perfil y el color de tu refugio han sido actualizados!");
+    }
+
+    // Funciones de Dashboard (Interactividad)
+    function setMood(mood, el) {
+        document.querySelectorAll('.emoji-btn').forEach(e => e.classList.remove('active'));
+        el.classList.add('active');
+        document.getElementById('mood-label').innerText = "Hoy estás: " + mood;
+    }
+
+    function saveEntry() {
+        const text = document.getElementById('diary-entry').value;
+        if(text.trim() === "") return;
+        const history = document.getElementById('diary-history');
+        const now = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        const newPost = `<div class="alert alert-light border-0 shadow-sm border-start border-primary border-4 mb-2 small text-muted">
+            <strong>${now}</strong>: ${text}
+        </div>`;
+        history.innerHTML = newPost + history.innerHTML;
+        document.getElementById('diary-entry').value = "";
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
