@@ -2,6 +2,7 @@
 session_start();
 include("conexion.php");
 
+
 // 1. Inicio variables por defecto
 $login_exitoso = false;
 $nombre_login = "";
