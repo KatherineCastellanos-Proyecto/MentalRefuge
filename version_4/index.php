@@ -2,6 +2,7 @@
 session_start();
 include("conexion.php");
 
+
 // Si el usuario presiona el botón de editar
 if (isset($_GET['editar_diario'])) {
     $id_editar = $_GET['editar_diario'];
